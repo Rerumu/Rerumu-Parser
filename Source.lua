@@ -1,6 +1,6 @@
 local type, typeof										= type, typeof;
 local string, unpack, Insert							= string, unpack, table.insert;
-local tonumber, tostring, Format, Gsub, Gmatch, Sub		= tonumber, tostring, string.format, string.gsub, string.gmatch, string.sub;
+local tonumber, tostring, Fort, Gsub, Gmatch, Sub		= tonumber, tostring, string.format, string.gsub, string.gmatch, string.sub;
 local CFrame, Vector3, Vector3int16, Vector2, Vector2int16, UDim, UDim2, Color3, Ray	= CFrame, Vector3, Vector3int16, Vector2, Vector2int16, UDim, UDim2, Color3, Ray;
 local Backslashes = {
 	['\b']	= '\\b';
@@ -39,7 +39,7 @@ local Methods	= {
 				if (IndType == 'string') or (IndType == 'number') then
 					local ValType	= typeof(Value);
 					local RealType	= type(Value);
-					local IndexForm	= ((IndType == 'string') and Format('%q', Index)) or 'x'
+					local IndexForm	= ((IndType == 'string') and Fort('%q', Index)) or 'x'
 
 					if (RealType == 'table') and (not Buffer[Value]) then
 						LocalParse = Format(LocalParse, IndexForm, '[' .. LookE(Value) .. ']')
@@ -47,25 +47,25 @@ local Methods	= {
 					elseif (RealType == 'number') or (RealType == 'boolean') then
 						LocalParse = Format(LocalParse, IndexForm, tostring(Value))
 					elseif (RealType == 'string') then
-						LocalParse = Format(LocalParse, IndexForm, Format('%q', Value));--:gsub('"', '\\"')));
+						LocalParse = Format(LocalParse, IndexForm, Fort('%q', Value));--:gsub('"', '\\"')));
 					elseif (ValType == 'CFrame') then
-						LocalParse = Format(LocalParse, IndexForm, Format('CF(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', Value:components()))
+						LocalParse = Format(LocalParse, IndexForm, Fort('CF(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', Value:components()))
 					elseif (ValType == 'Vector2') then
-						LocalParse = Format(LocalParse, IndexForm, Format('V2(%s,%s)', Value.X, Value.Y))
+						LocalParse = Format(LocalParse, IndexForm, Fort('V2(%s,%s)', Value.X, Value.Y))
 					elseif (ValType == 'UDim') then
-						LocalParse = Format(LocalParse, IndexForm, Format('U1(%s,%s)', Value.Scale, Value.Offset))
+						LocalParse = Format(LocalParse, IndexForm, Fort('U1(%s,%s)', Value.Scale, Value.Offset))
 					elseif (ValType == 'UDim2') then
-						LocalParse = Format(LocalParse, IndexForm, Format('U2(%s,%s,%s,%s)', Value.X.Scale, Value.X.Offset, Value.Y.Scale, Value.Y.Offset))
+						LocalParse = Format(LocalParse, IndexForm, Fort('U2(%s,%s,%s,%s)', Value.X.Scale, Value.X.Offset, Value.Y.Scale, Value.Y.Offset))
 					elseif (ValType == 'Vector2int16') then
-						LocalParse = Format(LocalParse, IndexForm, Format('V216(%s,%s)', Value.X, Value.Y))
+						LocalParse = Format(LocalParse, IndexForm, Fort('V216(%s,%s)', Value.X, Value.Y))
 					elseif (ValType == 'Vector3') then
-						LocalParse = Format(LocalParse, IndexForm, Format('V3(%s,%s,%s)', Value.X, Value.Y, Value.Z))
+						LocalParse = Format(LocalParse, IndexForm, Fort('V3(%s,%s,%s)', Value.X, Value.Y, Value.Z))
 					elseif (ValType == 'Vector3int16') then
-						LocalParse = Format(LocalParse, IndexForm, Format('V316(%s,%s,%s)', Value.X, Value.Y, Value.Z))
+						LocalParse = Format(LocalParse, IndexForm, Fort('V316(%s,%s,%s)', Value.X, Value.Y, Value.Z))
 					elseif (ValType == 'Color3') then
-						LocalParse = Format(LocalParse, IndexForm, Format('C3(%s,%s,%s)', Value.r, Value.g, Value.b))
+						LocalParse = Format(LocalParse, IndexForm, Fort('C3(%s,%s,%s)', Value.r, Value.g, Value.b))
 					elseif (ValType == 'Ray') then
-						LocalParse = Format(LocalParse, IndexForm, Format('R(%s,%s,%s,%s,%s,%s)', Value.Origin.X, Value.Origin.Y, Value.Origin.Z, Value.Direction.X, Value.Direction.Y, Value.Direction.Z))
+						LocalParse = Format(LocalParse, IndexForm, Fort('R(%s,%s,%s,%s,%s,%s)', Value.Origin.X, Value.Origin.Y, Value.Origin.Z, Value.Direction.X, Value.Direction.Y, Value.Direction.Z))
 					end;
 				end
 			end
@@ -181,7 +181,7 @@ local Methods	= {
 };
 
 function Format(LocalParse, Index, Item)
-	return Format(ParseTemp, ((LocalParse == '') and LocalParse) or (LocalParse .. ';'), Index, Item);
+	return Fort(ParseTemp, ((LocalParse == '') and LocalParse) or (LocalParse .. ';'), Index, Item);
 end
 
 function UnForm(String)
