@@ -5,7 +5,9 @@ local Tonumber	= tonumber;
 local Concat	= table.concat;
 local Gsub, Sub	= string.gsub, string.sub;
 local Match		= string.match;
-local Type		= type;
+local Type		= typeof;
+
+local C3, V3, CF, Ray, Bri	= Color3.new, Vector3.new, CFrame.new, Ray.new, BrickColor.new; -- Yell at me for this lengthy definition later.
 
 local EFormat, DFormat	= {}, {};
 local Backs = {
@@ -52,6 +54,18 @@ function Extract(Data)
 		return true;
 	elseif Mem['^false$'] then
 		return false;
+	elseif (Mem['^B%[(%d+)%]$']) then
+		return Bri(Mem[2]);
+	elseif (Mem['^R%[(.+)%]$']) then
+		local A, B, C, X, Y, Z	= Match(Mem[2], '(.+),(.+),(.+),(.+),(.+),(.+)');
+
+		return Ray(V3(A, B, C), V3(X, Y, Z));
+	elseif (Mem['^CF%[(.+)%]$']) then
+		return CF(Match(Mem[2], '(.+),(.+),(.+),(.+),(.+),(.+),(.+),(.+),(.+),(.+),(.+),(.+)'));
+	elseif (Mem['^V3%[(.+)%]$']) then
+		return V3(Match(Mem[2], '(.+),(.+),(.+)'));
+	elseif (Mem['^C3%[(.+)%]$']) then
+		return C3(Match(Mem[2], '(.+),(.+),(.+)'));
 	else
 		return tonumber(Data) or Data;
 	end;
@@ -77,6 +91,18 @@ function Encode(Table, Buff)
 			Buff[Value]	= true;
 
 			Val	= Encode(Value, Buff);
+		elseif (ValT == 'BrickColor') then
+			Val	= Concat{'B[', Value.Number, ']'};
+		elseif (ValT == 'Ray') then
+			local Ori, Dir	= Value.Origin, Value.Direction;
+
+			Val	= Concat{'R[', Concat({Ori.X, Ori.Y, Ori.Z, Dir.X, Dir.Y, Dir.Z}, ','), ']'};
+		elseif (ValT == 'CFrame') then
+			Val	= Concat{'CF[', Concat({Value:components()}, ','), ']'};
+		elseif (ValT == 'Vector3') then
+			Val	= Concat{'V3[', Concat({Value.X, Value.Y, Value.Z}, ','), ']'};
+		elseif (ValT == 'Color3') then
+			Val	= Concat{'C3[', Concat({Value.r, Value.g, Value.b}, ','), ']'};
 		end;
 
 		Result[#Result + 1]	= (Idx .. Val);
