@@ -72,7 +72,7 @@ function Extract(Data)
 	elseif (Mem['^C3%[(.+)%]$']) then
 		return C3(Match(Mem[2], '(.+),(.+),(.+)'));
 	else
-		return Tonumber(Data) or Data;
+		return Tonumber(Data);
 	end;
 end;
 
@@ -161,7 +161,7 @@ function Decode(String)
 					end;
 
 					Result[SafeString(Sub(Lay, 2, Index))]	= Extract(Sub(Lay, Index + 3, -2));
-				elseif (Lay ~= '') then
+				else
 					Result[#Result + 1]	= Extract(Sub(Lay, 1, -2));
 				end;
 				
