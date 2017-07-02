@@ -1,11 +1,8 @@
-# Userdata Parser
+# Reru Parser
 
-Reason to it? None really. It's just better than JSON when used with ROBLOX datastores.
-The parser returns a function to be called and used as follows.
+The Rerumu Lua based parser; better than JSON.
 
-```Lua
-local Parsed = Parser(Method_Name, Data_Passed);
-```
+I re-scripted the entire thing because I felt it was old and buggy.
+There is (or will be) a Standalone version to use with normal Lua, a ROBLOX version for ROBLOX userdata, and a ROBLOX++ with some additions to the ROBLOX one.
 
-This is one of my older projects which has been sitting around in my directory for a while so the style will differ.
-That's really about all there is to it. Source made by me.
+Source in the files provided; source by me.
