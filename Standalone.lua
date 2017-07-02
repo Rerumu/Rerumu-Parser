@@ -135,7 +135,7 @@ function Decode(String)
 					end;
 
 					Result[SafeString(Sub(Lay, 2, Index))]	= Extract(Sub(Lay, Index + 3, -2));
-				else
+				elseif (Lay ~= '') then
 					Result[#Result + 1]	= Extract(Sub(Lay, 1, -2));
 				end;
 				
