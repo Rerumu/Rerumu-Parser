@@ -1,6 +1,7 @@
 local Encode, Decode, Extract;
 
 local SetMeta	= setmetatable;
+local Tostring	= tostring;
 local Tonumber	= tonumber;
 local Concat	= table.concat;
 local Gsub, Sub	= string.gsub, string.sub;
@@ -67,7 +68,7 @@ function Extract(Data)
 	elseif (Mem['^C3%[(.+)%]$']) then
 		return C3(Match(Mem[2], '(.+),(.+),(.+)'));
 	else
-		return tonumber(Data) or Data;
+		return Tonumber(Data) or Data;
 	end;
 end;
 
@@ -84,7 +85,7 @@ function Encode(Table, Buff)
 		end;
 
 		if (ValT == 'number') or (ValT == 'boolean') then -- Things are encoded here; feel free to add.
-			Val	= Value;
+			Val	= Tostring(Value);
 		elseif (ValT == 'string') then
 			Val	= Concat{'"', SafeString(Value, EFormat), '"'};
 		elseif (ValT == 'table') and (not Buff[Value]) then
