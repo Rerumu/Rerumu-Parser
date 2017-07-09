@@ -21,7 +21,7 @@ local Properties			= setmetatable({}, {
 		return Got;
 	end;
 	__call = function(self, Instance, Property) -- Much neater to have both things here.
-		local Found	= self[Instance.ClassName][Property];
+		local Found, R	= self[Instance.ClassName][Property];
 
 		if (Found == nil) then
 			Found, R	= Pcall(Index, Instance, Property);
